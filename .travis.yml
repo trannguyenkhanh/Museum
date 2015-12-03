@@ -1,5 +1,8 @@
 language: csharp
 solution: TravisSample.sln
+install:
+  - nuget restore TravisSample.sln
+  - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
 script:
-  - xbuild /p:Configuration=Release solution-name.sln
-  - mono ./packages/xunit.runners.*/tools/xunit.console.clr4.exe ./TravisSample.Test/bin/Release/TravisSample.Test.dll
+  - xbuild /p:Configuration=Release TravisSample.sln
+  - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./TravisSample.Test/bin/Release/TravisSample.Test.dll
